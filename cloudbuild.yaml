@@ -1,16 +1,16 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/friendly-folio-408616/hellorun:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'gcr.io/friendly-folio-408616/cloudrun:$COMMIT_SHA', '.']
   
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/friendly-folio-408616/hellorun:$COMMIT_SHA']
+  args: ['push', 'gcr.io/friendly-folio-408616/cloudrun:$COMMIT_SHA']
 
 # Add deployment step for Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'run'
   - 'deploy'
-  - 'hellorun-app'  # Change this to your desired Cloud Run service name
+  - 'cloud-app'  # Change this to your desired Cloud Run service name
   - '--image=gcr.io/friendly-folio-408616/hellorun:$COMMIT_SHA'
   - '--platform=managed'
   - '--region=us-central1'  # Change this to your desired region
