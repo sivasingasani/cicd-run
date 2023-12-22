@@ -1,18 +1,18 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/friendly-folio-408616/hello:$COMMIT_SHA', '.']
-images: ['gcr.io/friendly-folio-408616/hello:$COMMIT_SHA']
+  args: ['build', '-t', 'gcr.io/friendly-folio-408616/hellorun:$COMMIT_SHA', '.']
+images: ['gcr.io/friendly-folio-408616/hellorun:$COMMIT_SHA']
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/friendly-folio-408616/hello:$COMMIT_SHA']
+  args: ['push', 'gcr.io/friendly-folio-408616/hellorun:$COMMIT_SHA']
 
 # Add deployment step for Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'run'
   - 'deploy'
-  - 'hello-app'  # Change this to your desired Cloud Run service name
-  - '--image=gcr.io/friendly-folio-408616/hello:$COMMIT_SHA'
+  - 'hellorun-app'  # Change this to your desired Cloud Run service name
+  - '--image=gcr.io/friendly-folio-408616/hellorun:$COMMIT_SHA'
   - '--platform=managed'
   - '--region=us-central1'  # Change this to your desired region
   - '--allow-unauthenticated'  # Change this based on your authentication requirements
